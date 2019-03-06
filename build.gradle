@@ -3,6 +3,10 @@
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
@@ -26,6 +30,10 @@ allprojects {
         maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
         maven { url "http://mvn.gt.igexin.com/nexus/content/repositories/releases/" }
         maven { url 'http://developer.huawei.com/repo/' }
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
 }
 

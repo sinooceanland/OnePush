@@ -6,8 +6,8 @@ import android.content.Context;
 import android.os.Process;
 import android.util.Log;
 
-import com.peng.one.push1.BuildConfig;
 import com.peng.one.push.OnePush;
+
 import java.util.List;
 
 /**
@@ -29,21 +29,19 @@ public class PushApplication extends Application {
             OnePush.init(this, ((platformCode, platformName) -> {
                 boolean result = false;
                 if (RomUtils.isMiuiRom()) {
-                    result=  platformCode == 101;
+                    result = platformCode == 101;
                 } else if (RomUtils.isHuaweiRom()) {
-                    result= platformCode == 108;
-                } else if(RomUtils.isFlymeRom()){
+                    result = platformCode == 108;
+                } else if (RomUtils.isFlymeRom()) {
                     result = platformCode == 103;
                 } else {
-                    result= platformCode == 106;
+                    result = platformCode == 106;
                 }
-                Log.i(TAG, "Register-> code: "+platformCode+" name: "+platformName+" result: "+result);
+                Log.i(TAG, "Register-> code: " + platformCode + " name: " + platformName + " result: " + result);
                 return result;
 //                return platformCode == 101;
             }));
-            OnePush.register();
         }
-      Log.i(TAG, "onCreate: isFlymeRom:"+RomUtils.isFlymeRom());
     }
 
     /**

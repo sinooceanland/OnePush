@@ -20,14 +20,13 @@ import android.widget.Toast;
 
 import com.peng.one.push.OnePush;
 import com.peng.one.push1.R;
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.OnNeverAskAgain;
-import permissions.dispatcher.OnPermissionDenied;
-import permissions.dispatcher.OnShowRationale;
-import permissions.dispatcher.PermissionRequest;
-import permissions.dispatcher.RuntimePermissions;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RequestExecutor;
+import com.yanzhenjie.permission.runtime.Permission;
 
-@RuntimePermissions
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
@@ -59,7 +58,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initView();
         initEvent();
         initCurrentPushData(getIntent());
-        MainActivityPermissionsDispatcher.requestAllPermissionWithCheck(this);
+    }
+
+    private void requestAllPermission(){
+        AndPermission.with(this)
+                .runtime()
+                .permission(Permission.Group.STORAGE,Permission.Group.LOCATION)
+                .rationale(new Rationale<List<String>>() {
+                    @Override
+                    public void showRationale(Context context, List<String> data, RequestExecutor executor) {
+                        new AlertDialog.Builder(context)
+                                .setMessage("请同意app权限，否则app，将不能使用")
+                                .setPositiveButton("继续", (dialog, button) -> executor.execute())
+                                .setNegativeButton("取消", (dialog, button) -> executor.cancel())
+                                .show();
+                    }
+                })
+                .onGranted(permissions -> {
+                    // Storage permission are allowed.
+                    OnePush.register();
+                })
+                .onDenied(permissions -> {
+                    // Storage permission are not allowed.
+                    if (AndPermission.hasAlwaysDeniedPermission(MainActivity.this, permissions)) {
+                        Toast.makeText(this, "拒绝，需要到系统设置，自己设定，否者有可能导致消息推送不成功！", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .start();
     }
 
     @Override
@@ -166,36 +191,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         tvLog.setText("");
         return false;
-    }
-
-    @NeedsPermission(value = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION})
-    public void requestAllPermission() {
-
-    }
-
-    @OnShowRationale(value = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION})
-    void showRationale(final PermissionRequest request) {
-        new AlertDialog.Builder(this)
-                .setMessage("请同意app权限，否则app，将不能使用")
-                .setPositiveButton("继续", (dialog, button) -> request.proceed())
-                .setNegativeButton("取消", (dialog, button) -> request.cancel())
-                .show();
-    }
-
-    @OnPermissionDenied(value = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION})
-    void showDenied() {
-        Toast.makeText(this, "拒绝，需要到系统设置，自己设定，否者有可能导致消息推送不成功！", Toast.LENGTH_SHORT).show();
-    }
-
-    @OnNeverAskAgain(value = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_FINE_LOCATION})
-    void showNeverAskAgain() {
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        // NOTE: delegate the permission handling to generated method
-        MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 }
