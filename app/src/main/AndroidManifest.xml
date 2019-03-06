@@ -56,12 +56,12 @@
         android:value="developer"/>
     <meta-data
         android:name="JPUSH_APPKEY"
-        android:value="41bb9f84d2158a7be9de3b47"/>
+        android:value="29fe33ebf514f0704c48e354"/>
 
     <!--华为HMS推送静态注册-->
     <meta-data
         android:name="com.huawei.hms.client.appid"
-        android:value="100099491"/>
+        android:value="100654057"/>
 
     <!--华为老版本推送不需要静态注册-->
 
