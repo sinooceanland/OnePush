@@ -36,8 +36,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     testCompile 'junit:junit:4.12'
-//    provided project(':one-push-core')
-    provided 'com.peng.library:one-push-core:1.2.1'
+    provided project(':one-push-core')
+//    provided 'com.peng.library:one-push-core:1.2.1'
 }
 
 apply plugin: 'com.novoda.bintray-release'

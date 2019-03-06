@@ -4,27 +4,24 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
 
-    lintOptions {
-        checkReleaseBuilds false
-        // Or, if you prefer, you can continue to check for errors in release builds,
-        // but continue the build even when errors are found:
-        abortOnError false
-    }
+
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 25
+        minSdkVersion 16
+        targetSdkVersion 26
         versionCode 1
-        versionName "1.2.1"
+        versionName "1.2.4"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -32,9 +29,11 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
-    provided 'com.peng.library:one-push-core:1.2.1'
-//    compile project(':one-push-core')
+    provided project(':one-push-core')
+//    provided 'com.peng.library:one-push-core:1.2.1'
+    compile 'com.huawei.android.hms:push:2.6.3.301'
 }
 
 apply plugin: 'com.novoda.bintray-release'
@@ -52,7 +51,7 @@ allprojects {
 publish {
     userOrg = 'pengyuantao'
     groupId = 'com.peng.library'
-    artifactId = 'one-push-huawei'
+    artifactId = 'one-push-huawei-hmsagents'
     publishVersion = android.defaultConfig.versionName
     desc = 'Oh hi, this is a nice description for a project, right?'
     website = 'https://github.com/novoda/bintray-release'
