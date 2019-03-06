@@ -24,11 +24,11 @@
     <!--小米推送静态注册-->
     <meta-data
         android:name="MI_PUSH_APP_ID"
-        android:value="\ 2882303761517577233"/>
+        android:value="\ 2882303761517958153"/>
 
     <meta-data
         android:name="MI_PUSH_APP_KEY"
-        android:value="\ 5701757717233"/>
+        android:value="\ 5681795872153"/>
 
     <!--个推推送静态注册-->
     <meta-data

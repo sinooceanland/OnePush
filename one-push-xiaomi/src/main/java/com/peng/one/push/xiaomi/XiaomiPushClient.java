@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.peng.one.push.OnePush;
 import com.peng.one.push.cache.OnePushCache;
 import com.peng.one.push.core.IPushClient;
 import com.peng.one.push.log.OneLog;
@@ -33,13 +32,15 @@ public class XiaomiPushClient implements IPushClient {
                 @Override
                 public void setTag(String s) {
                 }
+
                 @Override
                 public void log(String s) {
                     OneLog.i(s);
                 }
+
                 @Override
                 public void log(String s, Throwable throwable) {
-                    OneLog.e(s, throwable);
+                    OneLog.e("异常日志：" + s, throwable);
                 }
             });
         }
@@ -57,6 +58,7 @@ public class XiaomiPushClient implements IPushClient {
             OneLog.i("can't find MI_PUSH_APP_ID or MI_PUSH_APP_KEY in AndroidManifest.xml");
         }
     }
+
 
     @Override
     public void register() {
@@ -78,7 +80,7 @@ public class XiaomiPushClient implements IPushClient {
 
     @Override
     public void bindAlias(String alias) {
-        MiPushClient.setAlias(mContext,alias,null);
+        MiPushClient.setAlias(mContext, alias, null);
     }
 
     @Override
@@ -89,7 +91,7 @@ public class XiaomiPushClient implements IPushClient {
 
     @Override
     public void addTag(String tag) {
-        MiPushClient.subscribe(mContext,tag,null);
+        MiPushClient.subscribe(mContext, tag, null);
     }
 
     @Override
