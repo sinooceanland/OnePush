@@ -95,7 +95,7 @@ dependencies {
     compile project(':one-push-getui')
     compile project(':one-push-meizu')
     compile project(':one-push-jpush')
-
+    compile project(':commonutils')
 }
 
 /* 别名: onepush
