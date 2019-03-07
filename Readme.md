@@ -172,7 +172,7 @@ dependencies {
     <!--极光推送静态注册-->
     <meta-data
         android:name="JPUSH_CHANNEL"
-        android:value="developer"/>
+        android:value="developer-default"/>
     <meta-data
         android:name="JPUSH_APPKEY"
         android:value="41bb9f84d2158a7be9de3b47"/>

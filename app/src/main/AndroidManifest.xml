@@ -53,10 +53,10 @@
     <!--极光推送静态注册-->
     <meta-data
         android:name="JPUSH_CHANNEL"
-        android:value="developer"/>
+        android:value="developer-default"/>
     <meta-data
         android:name="JPUSH_APPKEY"
-        android:value="29fe33ebf514f0704c48e354"/>
+        android:value="c62d1bd237ab1b198f7e3538"/>
 
     <!--华为HMS推送静态注册-->
     <meta-data
