@@ -61,7 +61,7 @@
     <!--华为HMS推送静态注册-->
     <meta-data
         android:name="com.huawei.hms.client.appid"
-        android:value="100654057"/>
+        android:value="100655759"/>
 
     <!--华为老版本推送不需要静态注册-->
 
