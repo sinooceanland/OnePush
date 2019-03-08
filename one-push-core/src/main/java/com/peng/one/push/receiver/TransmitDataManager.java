@@ -2,6 +2,7 @@ package com.peng.one.push.receiver;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Parcelable;
 
 /**
@@ -23,6 +24,8 @@ public class TransmitDataManager {
      */
     public static void sendPushData(Context context, String action, Parcelable data) {
         Intent intent = new Intent(action);
+        if(Build.VERSION.SDK_INT >= 26)
+            intent.addFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
         intent.putExtra(INTENT_DATA_PUSH, data);
         intent.addCategory(context.getPackageName());
         context.sendBroadcast(intent);
