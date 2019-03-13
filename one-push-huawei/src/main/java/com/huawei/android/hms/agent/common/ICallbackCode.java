@@ -1,4 +1,4 @@
-package com.huawei.android.hms.agent.common.handler;
+package com.huawei.android.hms.agent.common;
 
 /**
  * 回调接口

@@ -1,7 +1,5 @@
 package com.huawei.android.hms.agent.common;
 
-import android.util.Log;
-
 /**
  * 日志打印类，对打印日志进行封装，方便根据日志定位问题
  */
@@ -35,7 +33,7 @@ public final class HMSAgentLog {
         if (logCallback != null) {
             logCallback.logD("HMSAgent", sb.toString());
         } else {
-            Log.d("HMSAgent", sb.toString());
+           // Log.d("HMSAgent", sb.toString());
         }
     }
 
@@ -46,7 +44,7 @@ public final class HMSAgentLog {
         if (logCallback != null) {
             logCallback.logV("HMSAgent", sb.toString());
         } else {
-            Log.v("HMSAgent", sb.toString());
+           // Log.v("HMSAgent", sb.toString());
         }
     }
 
@@ -57,7 +55,7 @@ public final class HMSAgentLog {
         if (logCallback != null) {
             logCallback.logI("HMSAgent", sb.toString());
         } else {
-            Log.i("HMSAgent", sb.toString());
+           // Log.i("HMSAgent", sb.toString());
         }
     }
 
@@ -68,7 +66,7 @@ public final class HMSAgentLog {
         if (logCallback != null) {
             logCallback.logW("HMSAgent", sb.toString());
         } else {
-            Log.w("HMSAgent", sb.toString());
+           // Log.w("HMSAgent", sb.toString());
         }
     }
 
@@ -80,7 +78,7 @@ public final class HMSAgentLog {
         if (logCallback != null) {
             logCallback.logE("HMSAgent", sb.toString());
         } else {
-            Log.e("HMSAgent", sb.toString());
+           // Log.e("HMSAgent", sb.toString());
         }
     }
 

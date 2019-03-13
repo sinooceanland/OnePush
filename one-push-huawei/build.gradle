@@ -33,7 +33,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     provided project(':one-push-core')
 //    provided 'com.peng.library:one-push-core:1.2.1'
-    compile 'com.huawei.android.hms:push:2.6.3.301'
+    compile 'com.huawei.android.hms:push:2.6.0.301'
 }
 
 apply plugin: 'com.novoda.bintray-release'
