@@ -24,6 +24,14 @@ public class JPushReceiver extends BroadcastReceiver {
 
   @Override
   public void onReceive(Context context, Intent intent) {
+
+    //解决极光推送在网络状态切换时自启动的问题
+    if(!OnePush.getPushPlatFormName().equalsIgnoreCase("jpush")){
+      JPushInterface.stopPush(context);
+      JPushInterface.onKillProcess(context);
+      return;
+    }
+
     String action = intent.getAction();
     Bundle bundle = intent.getExtras();
     //防止下面的bundle为null
