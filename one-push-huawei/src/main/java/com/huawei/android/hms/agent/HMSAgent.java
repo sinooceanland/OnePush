@@ -10,9 +10,11 @@ import android.widget.Toast;
 
 import com.huawei.android.hms.agent.common.ActivityMgr;
 import com.huawei.android.hms.agent.common.ApiClientMgr;
+import com.huawei.android.hms.agent.common.CheckUpdateApi;
 import com.huawei.android.hms.agent.common.HMSAgentLog;
 import com.huawei.android.hms.agent.common.IClientConnectCallback;
 import com.huawei.android.hms.agent.common.INoProguard;
+import com.huawei.android.hms.agent.common.handler.CheckUpdateHandler;
 import com.huawei.android.hms.agent.common.handler.ConnectHandler;
 import com.huawei.android.hms.agent.push.DeleteTokenApi;
 import com.huawei.android.hms.agent.push.EnableReceiveNormalMsgApi;
@@ -63,18 +65,16 @@ public final class HMSAgent implements INoProguard {
      */
     private static final String VER_020600200 = "020600200";
 
-    /**
-     * 2.6.0.302                                         | 2.6.0.302
-     * 修改manifest，删除hms版本号配置；增加直接传入请求和私钥的签名方法封装
-     */
-    private static final String VER_020600302 = "020600302";
+    private static final String VER_020601002 = "020601002";
+
+    private static final String VER_020601302 = "020601302";
+
+    private static final String VER_020603300 = "020603300";
 
     /**
      * 当前版本号 | Current version number
      */
-    public static final String CURVER = VER_020600302;
-
-
+    public static final String CURVER = VER_020603300;
 
     public static final class AgentResultCode {
 
@@ -251,25 +251,14 @@ public final class HMSAgent implements INoProguard {
     /**
      * 检查本应用的升级 | Check for upgrades to this application
      * @param activity 上下文 | context
+     * @param callback 升级结果回调 | check update Callback
      */
-    public static void checkUpdate (final Activity activity) {
-        HMSAgentLog.i("start checkUpdate");
-        ApiClientMgr.INST.connect(new IClientConnectCallback() {
-            @Override
-            public void onConnect(int rst, HuaweiApiClient client) {
-                Activity activityCur = ActivityMgr.INST.getLastActivity();
-
-                if (activityCur != null && client != null) {
-                    client.checkUpdate(activityCur);
-                } else if (activity != null && client != null){
-                    client.checkUpdate(activity);
-                } else {
-                    // 跟SE确认：activity 为 null ， 不处理 | Activity is null and does not need to be processed
-                    HMSAgentLog.e("no activity to checkUpdate");
-                }
-            }
-        }, true);
+    public static void checkUpdate (Activity activity, CheckUpdateHandler callback) {
+        new CheckUpdateApi().checkUpdate(activity, callback);
     }
+
+
+
 
 
     /**
