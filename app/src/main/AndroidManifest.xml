@@ -58,10 +58,14 @@
         android:name="JPUSH_APPKEY"
         android:value="2637bb01907784f09767ca07"/>
 
-    <!--华为HMS推送静态注册-->
+    <!-- 接入HMSSDK 需要注册的appid参数。value的值中“100655759”用实际申请的appid替换，来源于开发者联盟网站应用的权益详情。
+            格式 android:value="appid=xxxxxx"
+            Access HMSSDK need to register AppID parameters. Value "100655759" is replaced with the actual application APPID, derived from the Developer affiliate website application.
+            Format android:value= "appid=xxxxxx"-->
     <meta-data
         android:name="com.huawei.hms.client.appid"
-        android:value="100655759"/>
+        android:value="appid=100655759"/>
+
 
     <!--华为老版本推送不需要静态注册-->
 

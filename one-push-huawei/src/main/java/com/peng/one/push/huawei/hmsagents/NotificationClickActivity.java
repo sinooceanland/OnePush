@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.peng.one.push.OneRepeater;
+import com.peng.one.push.log.OneLog;
+import com.peng.one.push.utils.JsonUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,31 +30,14 @@ public class NotificationClickActivity extends Activity {
             String content = uri.getQueryParameter("content");
             String extraMsg = uri.getQueryParameter("extraMsg");
             String keyValue = uri.getQueryParameter("keyValue");
-            OneRepeater.transmitNotificationClick(getApplicationContext(), -1, title, content, extraMsg, json2Map(keyValue));
+            OneLog.i(keyValue);
+            try {
+                OneRepeater.transmitNotificationClick(getApplicationContext(), -1, title, content, extraMsg, JsonUtils.toMap(new JSONObject(keyValue)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
         finish();
     }
 
-    /**
-     * json转换map
-     * @param json
-     * @return
-     */
-    private Map<String,String> json2Map(String json){
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            Map<String, String> map = new HashMap<>();
-            Iterator<String> iterator = jsonObject.keys();
-            while (iterator.hasNext()) {
-                String key = iterator.next();
-                String value = jsonObject.getString(key);
-                map.put(key, value);
-            }
-            return map;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 }

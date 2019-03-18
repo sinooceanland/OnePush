@@ -72,7 +72,7 @@ public class HuaweiPushReceiver extends PushReceiver {
     @Override
     public void onEvent(Context context, Event event, Bundle bundle) {
         super.onEvent(context, event, bundle);
-
+        //官方建议使用自定义动作，因为此方法不稳定
         if (event == Event.NOTIFICATION_CLICK_BTN) {//通知栏中的按钮被点击
 
         } else if (event == Event.NOTIFICATION_OPENED) {//通知栏被打开（后台的发送通知必须包含键值对，否者该方法不会被调用）
@@ -80,15 +80,15 @@ public class HuaweiPushReceiver extends PushReceiver {
             //注意：如果app被用户给清理掉，这个方法是不会被调用的，所以建议后台发送通知，以打开指令页面的方式，这样就可以有效的控制Click事件的处理
 
             //EMUI4.0 and EMUI5.0 is not use
-            OneLog.e("onEvent() called with: context = [" + context + "], event = [" + event + "], bundle = [" + bundle + "]");
-            if (bundle != null) {
-                try {
-//                OneRepeater.transmitMessage(context, msg, null, null);
-                    OneRepeater.transmitNotificationClick(context, 0, null, null, bundle.getString("pushMsg"), null);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+//            OneLog.e("onEvent() called with: context = [" + context + "], event = [" + event + "], bundle = [" + bundle + "]");
+//            if (bundle != null) {
+//                try {
+////                OneRepeater.transmitMessage(context, msg, null, null);
+//                    OneRepeater.transmitNotificationClick(context, 0, null, null, bundle.getString("pushMsg"), null);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
         }
     }
 }

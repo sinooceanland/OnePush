@@ -1,3 +1,3 @@
-include ':app', ':one-push-core', ':one-push-xiaomi', ':one-push-umeng',  ':one-push-huawei',
-        ':one-push-jpush',
+include ':app', ':one-push-core', ':one-push-xiaomi',   ':one-push-huawei',':one-push-jpush',
+        ':one-push-umeng',
         ':one-push-umeng-utdid4all', ':one-push-getui', ':one-push-meizu',":commonutils"
