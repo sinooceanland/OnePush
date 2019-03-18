@@ -28,11 +28,9 @@ public class NotificationClickActivity extends Activity {
         if (uri != null) {
             String title = uri.getQueryParameter("title");
             String content = uri.getQueryParameter("content");
-            String extraMsg = uri.getQueryParameter("extraMsg");
             String keyValue = uri.getQueryParameter("keyValue");
-            OneLog.i(keyValue);
             try {
-                OneRepeater.transmitNotificationClick(getApplicationContext(), -1, title, content, extraMsg, JsonUtils.toMap(new JSONObject(keyValue)));
+                OneRepeater.transmitNotificationClick(getApplicationContext(), -1, title, content, null, JsonUtils.toMap(new JSONObject(keyValue)));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
