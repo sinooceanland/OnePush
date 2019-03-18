@@ -13,7 +13,15 @@ import com.xiaomi.mipush.sdk.MiPushCommandMessage;
 import com.xiaomi.mipush.sdk.MiPushMessage;
 import com.xiaomi.mipush.sdk.PushMessageReceiver;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import static com.peng.one.push.utils.JsonUtils.json2Map;
 
 /**
  * 1、PushMessageReceiver 是个抽象类，该类继承了 BroadcastReceiver。
@@ -42,20 +50,21 @@ public class XiaomiPushReceiver extends PushMessageReceiver {
     @Override
     public void onReceivePassThroughMessage(Context context, MiPushMessage message) {
         OneLog.i("onReceivePassThroughMessage() called with: context = [" + context + "], message = [" + message + "]");
-        OneRepeater.transmitMessage(context, message.getContent(), message.getDescription(), message.getExtra());
+
+        OneRepeater.transmitMessage(context, message.getTitle(), message.getDescription(), json2Map(message.getContent()));
     }
 
     @Override
     public void onNotificationMessageClicked(Context context, MiPushMessage message) {
         OneLog.i("onNotificationMessageClicked() called with: context = [" + context + "], message = [" + message + "]");
         // 这个动作可以在activity的onResume也能监听，请看第3点相关内容
-        OneRepeater.transmitNotificationClick(context,message.getNotifyId(),message.getTitle(),message.getDescription(),message.getContent(), message.getExtra());
+        OneRepeater.transmitNotificationClick(context,message.getNotifyId(),message.getTitle(),message.getDescription(),null, json2Map(message.getContent()));
     }
 
     @Override
     public void onNotificationMessageArrived(Context context, MiPushMessage message) {
         OneLog.i("onNotificationMessageArrived() called with: context = [" + context + "], message = [" + message + "]");
-        OneRepeater.transmitNotification(context,message.getNotifyId(),message.getTitle(),message.getDescription(),message.getContent(), message.getExtra());
+        OneRepeater.transmitNotification(context,message.getNotifyId(),message.getTitle(),message.getDescription(),null, json2Map(message.getContent()));
     }
 
     @Override
@@ -168,6 +177,4 @@ public class XiaomiPushReceiver extends PushMessageReceiver {
         }
         OneLog.i("onReceiveRegisterResult is called. " + " reason:" + log);
     }
-
-
 }

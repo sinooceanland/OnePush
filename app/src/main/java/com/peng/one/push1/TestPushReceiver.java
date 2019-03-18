@@ -1,6 +1,7 @@
 package com.peng.one.push1;
 
 import android.content.Context;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -8,6 +9,9 @@ import com.peng.one.push.OnePush;
 import com.peng.one.push.entity.OnePushCommand;
 import com.peng.one.push.entity.OnePushMsg;
 import com.peng.one.push.receiver.BaseOnePushReceiver;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by pyt on 2017/5/16.
@@ -24,6 +28,12 @@ public class TestPushReceiver extends BaseOnePushReceiver {
         super.onReceiveNotification(context, msg);
         Log.i(TAG, "onReceiveNotification: " + msg.toString());
         MainActivity.sendLogBroadcast(context, generateLogByOnePushMsg("收到通知",msg));
+        File file=new File(Environment.getExternalStorageDirectory()+"/test2.txt");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -52,6 +62,7 @@ public class TestPushReceiver extends BaseOnePushReceiver {
         StringBuilder builder = new StringBuilder();
         builder.append(String.format(LOG_LINE, type)).append("\n");
         if (onePushMsg.getMsg() != null) {
+            builder.append("消息标题：" + onePushMsg.getTitle()).append("\n");
             builder.append("消息内容：" + onePushMsg.getMsg()).append("\n");
         } else {
             builder.append("通知标题：" + onePushMsg.getTitle()).append("\n");

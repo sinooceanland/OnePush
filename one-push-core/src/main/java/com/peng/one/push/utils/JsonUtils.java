@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Json 工具类
@@ -34,6 +35,29 @@ public class JsonUtils {
             }
         }
         return map;
+    }
+
+    /**
+     * json转换map
+     * @param json
+     * @return
+     */
+    public static Map<String,String> json2Map(String json){
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            Map<String, String> map = new HashMap<>();
+            Iterator<String> iterator = jsonObject.keys();
+            while (iterator.hasNext()) {
+                String key = iterator.next();
+                String value = jsonObject.getString(key);
+                map.put(key, value);
+            }
+            return map;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 }

@@ -16,6 +16,8 @@ import java.util.Set;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.peng.one.push.utils.JsonUtils.json2Map;
+
 /**
  * Created by pengyuantao on 2017/10/25 18:26.
  */
@@ -40,7 +42,7 @@ public class JPushReceiver extends BroadcastReceiver {
       String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
       String extra = bundle.getString(JPushInterface.EXTRA_EXTRA);
       String msgId = bundle.getString(JPushInterface.EXTRA_MSG_ID);
-      OneRepeater.transmitMessage(context, message, extra, null);
+      OneRepeater.transmitMessage(context, title, message, json2Map(extra));
     } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(action)) {
       String title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE);
       String content = bundle.getString(JPushInterface.EXTRA_ALERT);

@@ -24,11 +24,11 @@
     <!--小米推送静态注册-->
     <meta-data
         android:name="MI_PUSH_APP_ID"
-        android:value="\ 2882303761517958153"/>
+        android:value="\ 2882303761517963704"/>
 
     <meta-data
         android:name="MI_PUSH_APP_KEY"
-        android:value="\ 5681795872153"/>
+        android:value="\ 5691796398704"/>
 
     <!--个推推送静态注册-->
     <meta-data
@@ -56,7 +56,7 @@
         android:value="developer-default"/>
     <meta-data
         android:name="JPUSH_APPKEY"
-        android:value="c62d1bd237ab1b198f7e3538"/>
+        android:value="2637bb01907784f09767ca07"/>
 
     <!--华为HMS推送静态注册-->
     <meta-data
@@ -104,7 +104,7 @@
         <!--android:value="com.peng.one.push.huawei.hms.HMSPushClient"/>-->
 
     <meta-data
-        android:name="OnePush_HMSPush_108"
+        android:name="OnePush_HuaWei_108"
         android:value="com.peng.one.push.huawei.hmsagents.HMSPushClient"/>
 
     <activity

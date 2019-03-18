@@ -50,13 +50,13 @@ public class OneRepeater {
     /**
      * Repeater passthrough message
      * @param context
-     * @param msg
-     * @param extraMsg
+     * @param title
+     * @param message
      */
-    public static void transmitMessage(Context context, String msg
-            , String extraMsg, Map<String,String> keyValue){
+    public static void transmitMessage(Context context, String title
+            , String message, Map<String,String> keyValue){
         transmit(context, OnePushAction.RECEIVE_MESSAGE
-                , new OnePushMsg(0, null, null, msg, extraMsg,keyValue));
+                , new OnePushMsg(0, title, null, message, null,keyValue));
     }
 
     /**

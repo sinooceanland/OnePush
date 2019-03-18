@@ -9,10 +9,16 @@ import com.peng.one.push.OnePush;
 import com.peng.one.push.OneRepeater;
 import com.peng.one.push.cache.OnePushCache;
 import com.peng.one.push.log.OneLog;
+import com.peng.one.push.utils.JsonUtils;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.nio.charset.Charset;
+import java.util.Map;
+
+import static com.peng.one.push.utils.JsonUtils.json2Map;
 
 /**
  * Created by pyt on 2017/5/15.
@@ -45,7 +51,22 @@ public class HuaweiPushReceiver extends PushReceiver {
     public void onPushMsg(Context context, byte[] bytes, String s) {
         super.onPushMsg(context, bytes, s);
         OneLog.i("huawei-hmsagents onPushMsg() called with: context = [" + context + "], bytes = [" + bytes + "], s = [" + s + "]");
-        OneRepeater.transmitMessage(context, new String(bytes, Charset.forName("UTF-8")), null, null);
+        String messageBody=new String(bytes, Charset.forName("UTF-8"));
+        try {
+            JSONObject jsonObject=new JSONObject(messageBody);
+            String title;
+            String message;
+            Map<String,String> keyValue;
+            if(jsonObject.has("title")&&jsonObject.has("content")){
+                title= jsonObject.getString("title");
+                message= jsonObject.getString("title");
+                keyValue=JsonUtils.toMap(jsonObject.getJSONObject("extras"));
+                OneRepeater.transmitMessage(context,title,message,keyValue);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        OneRepeater.transmitMessage(context,null,messageBody , null);
     }
 
     @Override
