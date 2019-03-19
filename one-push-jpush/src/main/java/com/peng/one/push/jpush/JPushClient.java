@@ -43,6 +43,7 @@ public class JPushClient implements IPushClient {
         this.context = context.getApplicationContext();
         JPushInterface.setDebugMode(OneLog.isDebug());
         JPushInterface.init(context);
+        JPushInterface.stopPush(context);
     }
 
     @Override
