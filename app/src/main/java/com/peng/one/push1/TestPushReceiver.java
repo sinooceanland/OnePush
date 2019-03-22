@@ -1,6 +1,10 @@
 package com.peng.one.push1;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -8,10 +12,12 @@ import android.util.Log;
 import com.peng.one.push.OnePush;
 import com.peng.one.push.entity.OnePushCommand;
 import com.peng.one.push.entity.OnePushMsg;
+import com.peng.one.push.log.OneLog;
 import com.peng.one.push.receiver.BaseOnePushReceiver;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by pyt on 2017/5/16.
@@ -39,7 +45,30 @@ public class TestPushReceiver extends BaseOnePushReceiver {
     @Override
     public void onReceiveNotificationClick(Context context, OnePushMsg msg) {
         Log.i(TAG, "onReceiveNotificationClick: " + msg.toString());
-        MainActivity.start(context, generateLogByOnePushMsg("通知栏点击",msg));
+//        MainActivity.start(context, generateLogByOnePushMsg("通知栏点击",msg));
+
+        Intent resolveIntent = new Intent(Intent.ACTION_MAIN, null);
+        resolveIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        resolveIntent.setPackage(context.getPackageName());
+        PackageManager pManager = context.getPackageManager();
+        List apps = pManager.queryIntentActivities(resolveIntent,
+                0);
+
+        ResolveInfo ri = (ResolveInfo) apps.iterator().next();
+        if (ri != null) {
+            String startappName = ri.activityInfo.packageName;
+            String className = ri.activityInfo.name;
+
+            OneLog.i("启动的activity是: " + startappName + ":" + className);
+
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            ComponentName cn = new ComponentName(startappName, className);
+
+            intent.setComponent(cn);
+            context.startActivity(intent);
+        }
     }
 
     @Override
